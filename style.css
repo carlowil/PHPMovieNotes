@@ -1,0 +1,19 @@
+body {
+    background-image: url("images/background/png-transparent-line-angle-point-grey-pattern-background-decoration-texture-rectangle-grey-thumbnail.png");
+    background-position: center;
+}
+h1 {
+    font-family: Revalia;
+}
+h2 {
+    font-family: Revalia;
+}
+p {
+    font-family: system-ui;
+}
+
+.line {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
