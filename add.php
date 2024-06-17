@@ -11,6 +11,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
         <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+        <script type="text/javascript" src="/ajax/jq.js"></script>
+        <script type="text/javascript" src="/ajax/add_movie.js"></script>
         <title>Library</title>
     </head>
     <body>
@@ -45,15 +47,15 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                     <image src="images/background/img_background.png">
                 </div>
                 <div class="col-md-4" style="margin-top: 80px;">
-                    <form method="post" action="/add_movie/add_movie.php" enctype="multipart/form-data">
+                    <form id="addMovieForm">
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="title">Title</span>
-                            <input name="title" type="text" class="form-control" placeholder="Магическая битва 2" aria-label="Магическая битва" aria-describedby="basic-addon1">
+                            <span class="input-group-text">Title</span>
+                            <input id="title" name="title" type="text" class="form-control" placeholder="Магическая битва 2" aria-label="Магическая битва" aria-describedby="basic-addon1">
                         </div>
 
                         <div class="input-group mb-3">
-                            <span class="input-group-text" id="href">Href</span>
-                            <input name="href" type="text" class="form-control" placeholder="https://anixart.me" aria-label="https://anixart.me" aria-describedby="basic-addon1">
+                            <span class="input-group-text">Href</span>
+                            <input id="href" name="href" type="text" class="form-control" placeholder="https://anixart.me" aria-label="https://anixart.me" aria-describedby="basic-addon1">
                         </div>
                         
                         <div class="input-group mb-3">
@@ -73,12 +75,12 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                         </div>
                         <div class="input-group mb-3">
                             <span class="input-group-text">Description</span>
-                            <textarea name="desc" class="form-control" aria-label="Text" placeholder="All started from..."></textarea>
+                            <textarea id="desc" name="desc" class="form-control" aria-label="Text" placeholder="All started from..."></textarea>
                         </div>
 
                         <div class="input-group mb-3">
                             <span class="input-group-text">Comment</span>
-                            <textarea name="comment" class="form-control" aria-label="Text" placeholder="I like it!"></textarea>
+                            <textarea id="comment" name="comment" class="form-control" aria-label="Text" placeholder="I like it!"></textarea>
                         </div>
 
                         <button type="submit" class="btn btn-primary mb-3">Submit</button>

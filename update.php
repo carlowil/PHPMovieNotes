@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "login/db_conn.php";
 
 if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
 ?>
@@ -11,6 +12,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
         <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+        <script type="text/javascript" src="/ajax/jq.js"></script>
+        <script type="text/javascript" src="/ajax/update_movie.js"></script>
         <title>Library</title>
     </head>
     <body>
@@ -45,44 +48,55 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                     <image src="images/background/img_background.png">
                 </div>
                 <div class="col-md-4" style="margin-top: 80px;">
-                    <form method="post" action="/update_movie/update_movie.php" enctype="multipart/form-data">
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="title">Title</span>
-                            <input name="title" type="text" class="form-control" placeholder="Магическая битва 2" aria-label="Магическая битва" aria-describedby="basic-addon1">
-                        </div>
+                    <?php
+                        $id = $_GET['id'];
+                        $sql = "SELECT * FROM posts WHERE id='$id'";
+                        $res = mysqli_query($conn, $sql);
+                        $movie = mysqli_fetch_assoc($res);
+                        $title = $movie['title'];
+                        $desc = $movie['description'];
+                        $comment = $movie['comment'];
+                        $rating = $movie['rating'];
+                        $href = $movie['href'];
+                        echo "<form id='updateMovieForm' data-id='$id'>
+                            <div class='input-group mb-3'>
+                                <span class='input-group-text'>Title</span>
+                                <input id='title' name='title' type='text' class='form-control' placeholder='Магическая битва 2' aria-label='Магическая битва' aria-describedby='basic-addon1' value='$title'>
+                            </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text" id="href">Href</span>
-                            <input name="href" type="text" class="form-control" placeholder="https://anixart.me" aria-label="https://anixart.me" aria-describedby="basic-addon1">
-                        </div>
-                        
-                        <div class="input-group mb-3">
-                            <input id="img" name="img" type="file" class="form-control">
-                        </div>
+                            <div class='input-group mb-3'>
+                                <span class='input-group-text'>Href</span>
+                                <input id='href' name='href' type='text' class='form-control' placeholder='https://anixart.me' aria-label='https://anixart.me' aria-describedby='basic-addon1' value='$href'>
+                            </div>
+                            
+                            <div class='input-group mb-3'>
+                                <input id='img' name='img' type='file' class='form-control'>
+                            </div>
 
-                        <div class="input-group mb-3">
-                            <label class="input-group-text" for="rating">Rating</label>
-                            <select class="form-select" id="rating" name="rating">
-                                <option selected>Choose...</option>
-                                <option value="1">One star</option>
-                                <option value="2">Two star</option>
-                                <option value="3">Three star</option>
-                                <option value="4">Four star</option>
-                                <option value="5">Five star</option>
-                            </select>
-                        </div>
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Description</span>
-                            <textarea name="desc" class="form-control" aria-label="Text" placeholder="All started from..."></textarea>
-                        </div>
+                            <div class='input-group mb-3'>
+                                <label class='input-group-text' for='rating'>Rating</label>
+                                <select class='form-select' id='rating' name='rating'>
+                                    <option selected>Choose...</option>
+                                    <option value='1'>One star</option>
+                                    <option value='2'>Two star</option>
+                                    <option value='3'>Three star</option>
+                                    <option value='4'>Four star</option>
+                                    <option value='5'>Five star</option>
+                                </select>
+                            </div>
+                            <div class='input-group mb-3'>
+                                <span class='input-group-text'>Description</span>
+                                <textarea id='desc' name='desc' class='form-control' aria-label='Text' placeholder='All started from...'>$desc</textarea>
+                            </div>
 
-                        <div class="input-group mb-3">
-                            <span class="input-group-text">Comment</span>
-                            <textarea name="comment" class="form-control" aria-label="Text" placeholder="I like it!"></textarea>
-                        </div>
+                            <div class='input-group mb-3'>
+                                <span class='input-group-text'>Comment</span>
+                                <textarea id='comment' name='comment' class='form-control' aria-label='Text' placeholder='I like it!'>$comment</textarea>
+                            </div>
 
-                        <button type="submit" class="btn btn-primary mb-3">Submit</button>
-                    </form>
+                            <button type='submit' class='btn btn-primary mb-3'>Submit</button>
+                        </form>";
+                    ?>
                 </div>
             </div>
         </main>

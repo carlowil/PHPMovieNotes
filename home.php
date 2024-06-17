@@ -12,6 +12,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
         <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
+        <script type="text/javascript" src="/ajax/jq.js"></script>
+        <script type="text/javascript" src="/ajax/delete_movie.js"></script>
         <title>Library</title>
     </head>
     <body>
@@ -68,8 +70,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                             $desc = truncate($films['description'], 280);
                             $id = $films['id'];
                             if ($active == 1) {
-                                echo "<div class='col'>
-                            <div class='card'>
+                                echo "<div class='col card-col'>
+                            <div class='card my-card' data-id='$id' data-title='$title'>
                                 <div class='row g-0'>
                                     <div class='col'>
                                         <a href=''>
@@ -82,15 +84,11 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                                             <p class='card-text'><small class='text-muted'>Rating: $rating</small></p>
                                             <p class='card-text'>$desc</p>
                                             <div style='display: flex;'>
-                                                <a href='del_movie/del_movie.php?id={$id}'>
-                                                    <button type='button' class='btn btn-danger' aria-label='Close'>Delete</button>
-                                                </a>
+                                                <button type='button' class='btn btn-danger btn-delete' aria-label='Close'>Delete</button>
                                                 <a href='update.php?id={$id}' style='margin-left: 12px;'>
-                                                    <button type='button' class='btn btn-primary' aria-label='Edit'>Edit</button>
+                                                    <button type='button' class='btn btn-primary' aria-label='Edit' style='width: 65px;'>Edit</button>
                                                 </a>
-                                                <a href='innactive_movie/innactive_movie.php?id={$id}' style='margin-left: 12px;'>
-                                                    <button type='button' class='btn btn-secondary' aria-label='Innactive'>Innactive</button>
-                                                </a>
+                                                <button type='button' class='btn btn-secondary btn-innactive' aria-label='Innactive' style='margin-left: 12px;'>Innactive</button>
                                             </div>
                                         </div>
                                     </div>
@@ -112,15 +110,11 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                                             <p class='card-text'><small class='text-muted'>Rating: $rating</small></p>
                                             <p class='card-text'>$desc</p>
                                             <div style='display: flex;'>
-                                                <a href='del_movie/del_movie.php?id={$id}' style='pointer-events: none;'>
-                                                    <button type='button' class='btn btn-danger' aria-label='Close' true disabled>Delete</button>
+                                                <button type='button' class='btn btn-danger btn-delete' aria-label='Close'>Delete</button>
+                                                <a href='update.php?id={$id}' style='margin-left: 12px;'>
+                                                    <button type='button' class='btn btn-primary' aria-label='Edit' style='width: 65px;'>Edit</button>
                                                 </a>
-                                                <a href='update.php?id={$id}' style='margin-left: 12px; pointer-events: none;'>
-                                                    <button type='button' class='btn btn-primary' aria-label='Edit' disabled>Edit</button>
-                                                </a>
-                                                <a href='innactive_movie/innactive_movie.php?id={$id}' style='margin-left: 12px;'>
-                                                    <button type='button' class='btn btn-secondary' aria-label='Innactive'>Innactive</button>
-                                                </a>
+                                                <button type='button' class='btn btn-secondary btn-innactive' aria-label='Innactive' style='margin-left: 12px;'>Innactive</button>
                                             </div>
                                         </div>
                                     </div>
