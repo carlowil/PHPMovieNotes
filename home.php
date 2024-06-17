@@ -14,6 +14,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
         <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
         <script type="text/javascript" src="/ajax/jq.js"></script>
         <script type="text/javascript" src="/ajax/delete_movie.js"></script>
+        <script type="text/javascript" src="/ajax/update_state.js"></script>
         <title>Library</title>
     </head>
     <body>
@@ -74,7 +75,7 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                             <div class='card my-card' data-id='$id' data-title='$title'>
                                 <div class='row g-0'>
                                     <div class='col'>
-                                        <a href=''>
+                                        <a class='image-ref' href='movie.php?id={$id}'>
                                             <img src='$img' class='img-fluid rounded-start' alt='$title'>
                                         </a>
                                     </div>
@@ -85,8 +86,8 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                                             <p class='card-text'>$desc</p>
                                             <div style='display: flex;'>
                                                 <button type='button' class='btn btn-danger btn-delete' aria-label='Close'>Delete</button>
-                                                <a href='update.php?id={$id}' style='margin-left: 12px;'>
-                                                    <button type='button' class='btn btn-primary' aria-label='Edit' style='width: 65px;'>Edit</button>
+                                                <a class='edit-ref' href='update.php?id={$id}' style='margin-left: 12px;'>
+                                                    <button type='button' class='btn btn-primary btn-editt' aria-label='Edit' style='width: 65px;'>Edit</button>
                                                 </a>
                                                 <button type='button' class='btn btn-secondary btn-innactive' aria-label='Innactive' style='margin-left: 12px;'>Innactive</button>
                                             </div>
@@ -97,10 +98,10 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                         </div>";
                             } else if ($active == 0) {
                                 echo "<div class='col'>
-                            <div class='card'>
+                            <div class='card my-card' data-id='$id'>
                                 <div class='row g-0'>
                                     <div class='col'>
-                                        <a href='' style='pointer-events: none;'>
+                                        <a class='image-ref' href='movie.php?id={$id}' style='pointer-events: none;'>
                                             <img src='$img' class='img-fluid rounded-start' alt='$title'>
                                         </a>
                                     </div>
@@ -110,11 +111,11 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                                             <p class='card-text'><small class='text-muted'>Rating: $rating</small></p>
                                             <p class='card-text'>$desc</p>
                                             <div style='display: flex;'>
-                                                <button type='button' class='btn btn-danger btn-delete' aria-label='Close'>Delete</button>
-                                                <a href='update.php?id={$id}' style='margin-left: 12px;'>
-                                                    <button type='button' class='btn btn-primary' aria-label='Edit' style='width: 65px;'>Edit</button>
+                                                <button type='button' class='btn btn-danger btn-delete' aria-label='Close' true disabled>Delete</button>
+                                                <a class='edit-ref' href='update.php?id={$id}' style='margin-left: 12px; pointer-events: none;'>
+                                                    <button type='button' class='btn btn-primary btn-editt' style='width: 65px; aria-label='Edit' disabled>Edit</button>
                                                 </a>
-                                                <button type='button' class='btn btn-secondary btn-innactive' aria-label='Innactive' style='margin-left: 12px;'>Innactive</button>
+                                                <button type='button' class='btn btn-secondary btn-innactive' aria-label='Innactive' style='margin-left: 12px;'>Active</button>
                                             </div>
                                         </div>
                                     </div>
@@ -130,11 +131,19 @@ if (isset($_SESSION['uid']) && isset($_SESSION['user_name'])) {
                         echo "<p style='text-align: center; margin-top: 52px;'>Empty database! Add some films</p?";
                     } ?>
         </main>
-        <div style="position: fixed; right: 0; bottom: 0; z-index: 3; margin-bottom: 12px; margin-right: 12px;">
-                <form method="get" action="add.php">
-                    <button class="btn btn-primary" style="width: 120px; height: 45px;" type="submit">Add</button>
-                </form>
-            <div>
+        <div style="position: fixed; right: 0; bottom: 0; z-index: 3; margin-bottom: 12px; margin-right: 12px; display: flex;">
+            <div id="my-alert" class="alert alert-success d-flex align-items-center" role="alert" style="margin-right: 14px; visibility: hidden;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img" aria-label="Warning:">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                </svg>
+                <div id="my-alert-text">
+                    
+                </div>
+            </div>
+            <form method="get" action="add.php">
+                <button class="btn btn-primary" style="width: 120px; height: 45px;" type="submit">Add</button>
+            </form>
+        <div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     </body>
 </html>

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    let form = $('#addMovieForm')
+    let form = $('#addMovieForm');
     form.on("submit", async function( event ) {
         event.preventDefault()
         try {
@@ -46,9 +46,7 @@ $(document).ready(function(){
                     location.assign('/home.php');
                 }
             }) 
-
             console.log(data);
-
         } catch(err) {
             console.log(err)
         }

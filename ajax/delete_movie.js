@@ -1,5 +1,7 @@
 $(document).ready(function(){
     let delButton = $('.btn-delete');
+    let my_alert = $('#my-alert');
+    let alert_text = my_alert.find('#my-alert-text');
     delButton.click( function() {
         try {
             let card = $(this).closest('.my-card');
@@ -19,10 +21,12 @@ $(document).ready(function(){
                     console.log(result)
                     if (result.status == 0) {
                         card.closest('.card-col').remove();
-                        alert(result.message);
+                        alert_text.html(result.message);
+                        my_alert.css('visibility', 'visible');
                     }
                     else {
-                        alert(result.message);
+                        alert_text.html(result.message);
+                        my_alert.css('visibility', 'visible');
                         console.log(result.message);
                         console.log(result)
                     }
